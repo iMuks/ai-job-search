@@ -119,3 +119,13 @@ company_research/*.json
 
 # Brainstorm mockups (superpowers visual companion) - never ship
 .superpowers/
+
+# Unattended pipeline (tools/auto_pipeline.py): handoff inbox, run logs, state.
+**/job_scraper/inbox/
+**/job_scraper/auto_logs/
+**/job_scraper/auto_pipeline.log
+**/job_scraper/.auto_pipeline.lock
+**/job_scraper/inbox_processed/
+**/job_scraper/apply_queue.json
+**/job_scraper/apply_queue.tmp
+**/job_scraper/.*.lock

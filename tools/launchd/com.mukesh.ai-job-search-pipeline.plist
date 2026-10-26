@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Runs tools/auto_pipeline.py whenever a file lands in job_scraper/inbox/.
+     Install: cp to ~/Library/LaunchAgents/ and `launchctl load` it. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.mukesh.ai-job-search-pipeline</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/python3</string>
+    <string>/Users/mukeshsharma/Downloads/ai-job-search/tools/auto_pipeline.py</string>
+  </array>
+  <key>WorkingDirectory</key><string>/Users/mukeshsharma/Downloads/ai-job-search</string>
+  <key>WatchPaths</key>
+  <array><string>/Users/mukeshsharma/Downloads/ai-job-search/job_scraper/inbox</string></array>
+  <!-- Safety net: drains a missed inbox file or an interrupted queue after
+       sleep/reboot. A no-op (no claude call) when both are empty. -->
+  <key>RunAtLoad</key><true/>
+  <key>StartInterval</key><integer>900</integer>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>AUTO_MIN_SCORE</key><string>80</string>
+    <key>AUTO_CONCURRENCY</key><string>1</string>
+    <key>AUTO_BUDGET_USD</key><string>5</string>
+    <key>AUTO_RANK_ONLY</key><string>0</string>
+  </dict>
+  <key>StandardOutPath</key><string>/Users/mukeshsharma/Downloads/ai-job-search/job_scraper/auto_pipeline.log</string>
+  <key>StandardErrorPath</key><string>/Users/mukeshsharma/Downloads/ai-job-search/job_scraper/auto_pipeline.log</string>
+  <key>AbandonProcessGroup</key><true/>
+  <key>ProcessType</key><string>Background</string>
+</dict>
+</plist>
